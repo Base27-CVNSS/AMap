@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMap Multi-Engine Platform</title>
+<style>
+:root{color-scheme:light;--ink:#11243d;--muted:#65758b;--line:#dce4ec;--panel:#f7f9fc;--accent:#0b63ce;--green:#16784a}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f9fbfd)}
+.wrap{max-width:1180px;margin:auto;padding:28px}
+h1{margin:0 0 6px;font-size:30px;letter-spacing:-.03em}
+.lead{margin:0;color:var(--muted);max-width:860px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:#fff;font-size:12px}
+section{margin:34px 0}
+h2{font-size:19px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff;min-height:125px}
+.card b{display:block;margin-bottom:5px}
+.card small{color:var(--muted)}
+.core{border-left:3px solid var(--accent)}
+.dynamic{border-left:3px solid var(--green)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center}
+.step{padding:14px 10px;border:1px solid var(--line);border-radius:10px;text-align:center;background:var(--panel);font-size:13px}
+.arrow{text-align:center;color:var(--muted)}
+pre{overflow:auto;background:#0f1b2d;color:#d9e8ff;padding:20px;border-radius:12px;font-size:13px}
+.note{padding:14px 16px;background:#f3f8ff;border:1px solid #cfe2fb;border-radius:10px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+@media(max-width:760px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>AMap Multi-Engine Platform</h1>
+<p class="lead">Clean-room, provider-neutral architecture for WebGIS, navigation, ADAS, robotics and spatial world models. Engines are replaceable; contracts remain stable.</p>
+<div class="badges"><span class="badge">14 engines</span><span class="badge">provider adapters</span><span class="badge">endpoint isolation</span><span class="badge">offline-ready</span><span class="badge">VFM-ready</span></div>
+</div></header>
+<main class="wrap">
+<section>
+<h2>Platform flow</h2>
+<div class="flow">
+<div class="step">Application / UI</div><div class="arrow">→</div>
+<div class="step">Capability API</div><div class="arrow">→</div>
+<div class="step">Engine Registry</div>
+</div>
+<div class="flow" style="margin-top:8px">
+<div class="step">Domain Engine</div><div class="arrow">→</div>
+<div class="step">Provider Adapter</div><div class="arrow">→</div>
+<div class="step">Endpoint Registry</div>
+</div>
+</section>
+<section>
+<h2>Domain engines</h2>
+<div class="grid">
+<div class="card core"><b>Map</b><small>Renderer, vector tiles, styles, labels, viewport and camera.</small></div>
+<div class="card core"><b>Road</b><small>Stable nodes, links, topology, restrictions, speed and toll attributes.</small></div>
+<div class="card core"><b>Lane</b><small>Lane geometry, connectivity, markings, movements and lane matching.</small></div>
+<div class="card dynamic"><b>Traffic</b><small>Realtime link state, congestion, incidents and travel time.</small></div>
+<div class="card dynamic"><b>Signal</b><small>Intersection movements, groups, phases, realtime state and countdown.</small></div>
+<div class="card core"><b>Sign</b><small>Speed limits, regulatory/warning signs, cameras, checkpoints and facilities.</small></div>
+<div class="card core"><b>Routing</b><small>Graph search, scoring, alternatives, reroute, ETA and guidance.</small></div>
+<div class="card dynamic"><b>Positioning</b><small>GNSS, RTK, IMU/VDR fusion, map matching and lane matching.</small></div>
+<div class="card dynamic"><b>Perception</b><small>CV, lane/light/sign perception, VIO/SLAM, depth and AR projection.</small></div>
+<div class="card core"><b>Offline</b><small>Map packs, route graphs, voice packs, cache and delta updates.</small></div>
+<div class="card core"><b>Runtime</b><small>Plugin lifecycle and JS/native bridge boundary.</small></div>
+<div class="card core"><b>Storage</b><small>SQLite/KV/binary cache abstractions.</small></div>
+<div class="card core"><b>Algorithms</b><small>Graph, HMM/Viterbi, Kalman/fusion, ETA, CV/SLAM primitives.</small></div>
+<div class="card core"><b>Network</b><small>Provider-neutral transport, ports, TLS and endpoint resolution.</small></div>
+</div>
+</section>
+<section>
+<h2>Long-lived boundary</h2>
+<pre>Engine
+  └─ Capability Contract
+       └─ Provider Adapter
+            └─ Endpoint Registry
+                 └─ HTTPS / WSS / QUIC / other transport
+
+NO vendor hostname inside domain core
+NO private key inside repository
+NO proprietary binary required by contract</pre>
+</section>
+<section>
+<div class="note"><b>Research ≠ implementation.</b> The <code>research/</code> directory records static architectural findings. The reusable code under <code>src/</code> is independent and provider-neutral.</div>
+</section>
+</main>
+<footer><div class="wrap">Base27-CVNSS · Multi-Engine Architecture · 2026</div></footer>
+</body>
+</html>
