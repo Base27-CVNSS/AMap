@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "policy": {
+    "allowPrivateVendorEndpointsInCore": false,
+    "defaultTlsPort": 443,
+    "secretsFromEnvironmentOnly": true
+  },
+  "endpoints": [
+    {
+      "id": "map-tiles",
+      "provider": "example-map-provider",
+      "protocol": "https",
+      "host": "tiles.example.invalid",
+      "port": 443,
+      "basePath": "/v1",
+      "operations": {
+        "tile": "/tiles/{z}/{x}/{y}"
+      }
+    },
+    {
+      "id": "traffic",
+      "provider": "example-traffic-provider",
+      "protocol": "https",
+      "host": "traffic.example.invalid",
+      "port": 443,
+      "basePath": "/v1",
+      "operations": {
+        "state": "/links/state",
+        "incidents": "/incidents"
+      }
+    },
+    {
+      "id": "signals",
+      "provider": "example-signal-provider",
+      "protocol": "https",
+      "host": "signals.example.invalid",
+      "port": 443,
+      "basePath": "/v1",
+      "operations": {
+        "realtime": "/signals/realtime"
+      }
+    }
+  ]
+}
