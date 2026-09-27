@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://base27.example/schemas/road-link.schema.json",
+  "title": "RoadLink",
+  "type": "object",
+  "required": ["id", "fromNode", "toNode", "geometry", "direction", "source"],
+  "properties": {
+    "id": { "type": "string" },
+    "fromNode": { "type": "string" },
+    "toNode": { "type": "string" },
+    "geometry": { "type": "object" },
+    "direction": { "enum": ["forward", "reverse", "both"] },
+    "roadClass": { "type": "string" },
+    "speedLimitKph": { "type": ["number", "null"], "minimum": 0 },
+    "toll": { "type": "boolean", "default": false },
+    "source": { "type": "string" },
+    "version": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}
