@@ -1,0 +1,4 @@
+path,evidence,has_geometry
+assets/voicesqure/default_voice_ip/amapvietnamese.json,Vietnamese voice-pack metadata,False
+classes4.dex,string amapVietnamese,False
+config.arm64_v8a.apk/lib/arm64-v8a/libamaptts.so,Vietnam/Vietnamese TTS strings,False

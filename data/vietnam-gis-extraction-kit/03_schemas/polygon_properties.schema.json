@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vietnam Polygon Properties",
+  "type": "object",
+  "required": ["id", "source", "class"],
+  "properties": {
+    "id": {"type": "string"},
+    "source": {"type": "string"},
+    "source_id": {"type": ["string", "null"]},
+    "class": {"type": "string"},
+    "subclass": {"type": ["string", "null"]},
+    "name": {"type": ["string", "null"]},
+    "name_en": {"type": ["string", "null"]},
+    "admin_level": {"type": ["integer", "null"]},
+    "road_class": {"type": ["string", "null"]},
+    "oneway": {"type": ["boolean", "null"]},
+    "speed_kph": {"type": ["number", "null"], "minimum": 0},
+    "valid_from": {"type": ["string", "null"]},
+    "valid_to": {"type": ["string", "null"]},
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "license": {"type": ["string", "null"]},
+    "source_version": {"type": ["string", "null"]},
+    "updated_at": {"type": ["string", "null"]},
+    "props": {"type": "object"}
+  },
+  "additionalProperties": true
+}

@@ -129,3 +129,40 @@ npm test
 This repository does **not** include copied proprietary APK/XAPK binaries, DEX/native code, bundled commercial map data, private API keys, private signing logic or proprietary ML model weights.
 
 See `docs/CLEAN_ROOM_POLICY.md`.
+
+## Vietnam GIS Extraction Kit
+
+A reproducible Vietnam-oriented GIS extraction/template kit is maintained under:
+
+`data/vietnam-gis-extraction-kit/`
+
+The complete archived kit is also retained at:
+
+`artifacts/vietnam-gis/AMap_Vietnam_GIS_Extraction_Kit.zip`
+
+The kit defines three provider-neutral canonical geometry layers in **EPSG:4326**:
+
+- `vn_points` — POI, intersections, signals, signs, cameras, stations, sensors and other point objects.
+- `vn_lines` — roads, lanes, railways, waterways, routes and linear infrastructure.
+- `vn_polygons` — administrative boundaries, land use, water, buildings, industrial/service/protected areas.
+
+The source XAPK analysis found **no embedded Vietnam Point/Line/Polygon dataset**. The templates intentionally contain no copied AMap map geometry. Production data should come from licensed/open datasets, runtime-authorized sources or user-owned offline/cache packages.
+
+Recommended long-lived flow:
+
+```text
+Licensed/Open source data
+        ↓
+Normalize to EPSG:4326
+        ↓
+vn_points / vn_lines / vn_polygons
+        ↓
+GeoPackage / PostGIS / VFM master
+        ↓
+PMTiles / MVT distribution
+        ↓
+MapLibre / AMap runtime adapters
+```
+
+See `data/vietnam-gis-extraction-kit/README.md`.
+

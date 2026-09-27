@@ -1,0 +1,19 @@
+{
+  "source_file": "AMap+Global_17.00.0.2009_APKPure.xapk",
+  "source_size_bytes": 255258933,
+  "source_sha256": "0c550ef7a9b7bab301fee12971f35b7ef9f03e55effebab1cdcb2456dc56841b",
+  "xapk_entries": [
+    {"name": "com.autonavi.minimap.apk", "size_bytes": 172416547},
+    {"name": "icon.png", "size_bytes": 66232},
+    {"name": "config.arm64_v8a.apk", "size_bytes": 81559644},
+    {"name": "config.en.apk", "size_bytes": 717209},
+    {"name": "config.mdpi.apk", "size_bytes": 492597},
+    {"name": "manifest.json", "size_bytes": 5944}
+  ],
+  "base_apk_explicit_gis_file_count": 0,
+  "offline_city_rows": 395,
+  "offline_catalog_vietnam_hits": 0,
+  "all_city_province_groups": 34,
+  "international_level1": [702000000, 764000000],
+  "vietnam_geometry_found": false
+}

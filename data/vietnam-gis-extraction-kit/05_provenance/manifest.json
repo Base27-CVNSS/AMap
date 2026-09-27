@@ -1,0 +1,13 @@
+{
+  "kit_version": "1.0.0",
+  "generated_at": "2026-09-27T10:24:10.087882+00:00",
+  "source_file": "AMap+Global_17.00.0.2009_APKPure.xapk",
+  "source_size_bytes": 255258933,
+  "source_sha256": "0c550ef7a9b7bab301fee12971f35b7ef9f03e55effebab1cdcb2456dc56841b",
+  "kit_archive_sha256": "0cd72782bf5ce68b584383376d4134378067c48fc74b9e77a6afde2e104090b9",
+  "canonical_gpkg_sha256": "ce48c5a9a05430cd46a243c8f2c140a749169abce0a72f9fc450e639d1cb4c55",
+  "finding": "No embedded Vietnam point/line/polygon dataset was found in the XAPK package.",
+  "crs": "EPSG:4326",
+  "canonical_layers": ["vn_points", "vn_lines", "vn_polygons"],
+  "license_note": "The XAPK and vendor map data may be subject to third-party terms. Template layers contain no copied AMap map geometry."
+}
