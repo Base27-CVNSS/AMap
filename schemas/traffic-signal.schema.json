@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://base27.example/schemas/traffic-signal.schema.json",
+  "title": "TrafficSignal",
+  "type": "object",
+  "required": ["id", "geometry", "roadLinkId"],
+  "properties": {
+    "id": { "type": "string" },
+    "geometry": { "type": "object" },
+    "roadLinkId": { "type": "string" },
+    "laneIds": { "type": "array", "items": { "type": "string" } },
+    "movementIds": { "type": "array", "items": { "type": "string" } },
+    "state": { "enum": ["red", "yellow", "green", "flashing", "unknown"] },
+    "countdownSeconds": { "type": ["number", "null"], "minimum": 0 },
+    "timestamp": { "type": ["string", "null"], "format": "date-time" },
+    "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": true
+}
