@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://base27.example/schemas/road-sign.schema.json",
+  "title": "RoadSignOrFacility",
+  "type": "object",
+  "required": ["id", "kind", "geometry", "roadLinkId"],
+  "properties": {
+    "id": { "type": "string" },
+    "kind": {
+      "enum": [
+        "speed_limit",
+        "warning",
+        "regulatory",
+        "mandatory",
+        "information",
+        "speed_camera",
+        "red_light_camera",
+        "interval_camera",
+        "checkpoint",
+        "toll_gate",
+        "facility"
+      ]
+    },
+    "geometry": { "type": "object" },
+    "roadLinkId": { "type": "string" },
+    "laneIds": { "type": "array", "items": { "type": "string" } },
+    "direction": { "type": ["number", "null"], "minimum": 0, "exclusiveMaximum": 360 },
+    "value": {},
+    "validFrom": { "type": ["string", "null"], "format": "date-time" },
+    "validTo": { "type": ["string", "null"], "format": "date-time" },
+    "source": { "type": ["string", "null"] },
+    "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": true
+}
