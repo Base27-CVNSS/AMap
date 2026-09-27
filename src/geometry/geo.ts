@@ -13,8 +13,17 @@ export interface BoundingBox {
 }
 
 export function normalizeCoordinate(input: CoordinateLike): Coordinate {
-  const longitude = Number(Array.isArray(input) ? input[0] : input.longitude);
-  const latitude = Number(Array.isArray(input) ? input[1] : input.latitude);
+  let longitude: number;
+  let latitude: number;
+
+  if (Array.isArray(input)) {
+    longitude = Number(input[0]);
+    latitude = Number(input[1]);
+  } else {
+    const point = input as Coordinate;
+    longitude = Number(point.longitude);
+    latitude = Number(point.latitude);
+  }
 
   if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) {
     throw new Error("Coordinate must contain finite longitude/latitude values");

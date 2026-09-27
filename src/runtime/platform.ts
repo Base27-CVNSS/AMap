@@ -13,12 +13,15 @@ export function detectRuntime(): RuntimeInfo {
   const nav = typeof navigator === "undefined" ? undefined : navigator;
   const userAgent = nav?.userAgent;
   const ua = userAgent?.toLowerCase() ?? "";
+  const globals = globalThis as typeof globalThis & {
+    process?: { versions?: { node?: string } };
+  };
 
   let platform: RuntimePlatform = "unknown";
   if (typeof window !== "undefined") platform = "web";
   if (/android/.test(ua)) platform = "android";
   if (/iphone|ipad|ipod/.test(ua)) platform = "ios";
-  if (typeof process !== "undefined" && process.versions?.node && typeof window === "undefined") platform = "server";
+  if (globals.process?.versions?.node && typeof window === "undefined") platform = "server";
 
   return {
     platform,
