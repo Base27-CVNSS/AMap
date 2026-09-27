@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://base27.example/schemas/lane.schema.json",
+  "title": "Lane",
+  "type": "object",
+  "required": ["id", "roadLinkId", "geometry", "direction"],
+  "properties": {
+    "id": { "type": "string" },
+    "roadLinkId": { "type": "string" },
+    "geometry": { "type": "object" },
+    "direction": { "type": "string" },
+    "laneType": { "type": ["string", "null"] },
+    "markingLeft": { "type": ["string", "null"] },
+    "markingRight": { "type": ["string", "null"] },
+    "allowedMovements": { "type": "array", "items": { "type": "string" } },
+    "nextLaneIds": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}
