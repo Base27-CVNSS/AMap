@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "runtime": {
+    "requiredCapabilities": ["map.render", "search.poi", "routing.route"],
+    "privacyPolicyVersion": "2026-09"
+  },
+  "network": {
+    "timeoutMs": 10000,
+    "maxRetries": 2,
+    "retryDelayMs": 400,
+    "cacheCapacity": 200
+  },
+  "providers": {
+    "map": "maplibre",
+    "tiles": "pmtiles",
+    "search": "replace-me",
+    "routing": "replace-me",
+    "traffic": "replace-me",
+    "signals": "replace-me",
+    "location": "browser-or-native"
+  }
+}

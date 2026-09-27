@@ -3,89 +3,62 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AMap Multi-Engine Platform</title>
+<title>AMap Multi-Engine Platform 0.2.0</title>
 <style>
-:root{color-scheme:light;--ink:#11243d;--muted:#65758b;--line:#dce4ec;--panel:#f7f9fc;--accent:#0b63ce;--green:#16784a}
-*{box-sizing:border-box}
-body{margin:0;font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
-header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f9fbfd)}
-.wrap{max-width:1180px;margin:auto;padding:28px}
-h1{margin:0 0 6px;font-size:30px;letter-spacing:-.03em}
-.lead{margin:0;color:var(--muted);max-width:860px}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.badge{border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:#fff;font-size:12px}
-section{margin:34px 0}
-h2{font-size:19px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.card{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff;min-height:125px}
-.card b{display:block;margin-bottom:5px}
-.card small{color:var(--muted)}
-.core{border-left:3px solid var(--accent)}
-.dynamic{border-left:3px solid var(--green)}
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center}
-.step{padding:14px 10px;border:1px solid var(--line);border-radius:10px;text-align:center;background:var(--panel);font-size:13px}
-.arrow{text-align:center;color:var(--muted)}
-pre{overflow:auto;background:#0f1b2d;color:#d9e8ff;padding:20px;border-radius:12px;font-size:13px}
-.note{padding:14px 16px;background:#f3f8ff;border:1px solid #cfe2fb;border-radius:10px}
+:root{--ink:#10243e;--muted:#64748b;--line:#d9e2ec;--bg:#f7f9fc;--blue:#0866d8;--green:#137a4e}
+*{box-sizing:border-box}body{margin:0;font:15px/1.58 Inter,system-ui,sans-serif;color:var(--ink);background:white}
+.wrap{max-width:1180px;margin:auto;padding:28px}header{border-bottom:1px solid var(--line);background:linear-gradient(#fff,#f8fbff)}
+h1{font-size:32px;margin:0 0 7px;letter-spacing:-.035em}.lead{max-width:880px;color:var(--muted);margin:0}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.badge{border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12px;background:white}
+section{margin:34px 0}h2{font-size:20px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:11px}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px;min-height:118px;background:#fff}.card b{display:block;margin-bottom:4px}.card small{color:var(--muted)}
+.core{border-left:3px solid var(--blue)}.dynamic{border-left:3px solid var(--green)}
+.pipeline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.step{padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:9px;font-size:13px}
+pre{background:#102038;color:#dceaff;padding:18px;border-radius:12px;overflow:auto}.note{background:#f3f8ff;border:1px solid #cfe2fb;border-radius:10px;padding:14px}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-@media(max-width:760px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
 </style>
 </head>
 <body>
 <header><div class="wrap">
-<h1>AMap Multi-Engine Platform</h1>
-<p class="lead">Clean-room, provider-neutral architecture for WebGIS, navigation, ADAS, robotics and spatial world models. Engines are replaceable; contracts remain stable.</p>
-<div class="badges"><span class="badge">14 engines</span><span class="badge">provider adapters</span><span class="badge">endpoint isolation</span><span class="badge">offline-ready</span><span class="badge">VFM-ready</span></div>
+<h1>AMap Multi-Engine Platform 0.2.0</h1>
+<p class="lead">A complete provider-neutral framework derived from capability analysis of modern mapping/navigation SDKs: map, overlays, search, routing, navigation, offline data, policy, diagnostics and spatial-world engines.</p>
+<div class="badges"><span class="badge">20 engines</span><span class="badge">search + routing</span><span class="badge">offline lifecycle</span><span class="badge">privacy gate</span><span class="badge">retry + cache</span><span class="badge">VFM-ready</span></div>
 </div></header>
 <main class="wrap">
-<section>
-<h2>Platform flow</h2>
-<div class="flow">
-<div class="step">Application / UI</div><div class="arrow">→</div>
-<div class="step">Capability API</div><div class="arrow">→</div>
-<div class="step">Engine Registry</div>
-</div>
-<div class="flow" style="margin-top:8px">
-<div class="step">Domain Engine</div><div class="arrow">→</div>
-<div class="step">Provider Adapter</div><div class="arrow">→</div>
-<div class="step">Endpoint Registry</div>
-</div>
-</section>
-<section>
-<h2>Domain engines</h2>
-<div class="grid">
-<div class="card core"><b>Map</b><small>Renderer, vector tiles, styles, labels, viewport and camera.</small></div>
-<div class="card core"><b>Road</b><small>Stable nodes, links, topology, restrictions, speed and toll attributes.</small></div>
-<div class="card core"><b>Lane</b><small>Lane geometry, connectivity, markings, movements and lane matching.</small></div>
-<div class="card dynamic"><b>Traffic</b><small>Realtime link state, congestion, incidents and travel time.</small></div>
-<div class="card dynamic"><b>Signal</b><small>Intersection movements, groups, phases, realtime state and countdown.</small></div>
-<div class="card core"><b>Sign</b><small>Speed limits, regulatory/warning signs, cameras, checkpoints and facilities.</small></div>
-<div class="card core"><b>Routing</b><small>Graph search, scoring, alternatives, reroute, ETA and guidance.</small></div>
-<div class="card dynamic"><b>Positioning</b><small>GNSS, RTK, IMU/VDR fusion, map matching and lane matching.</small></div>
-<div class="card dynamic"><b>Perception</b><small>CV, lane/light/sign perception, VIO/SLAM, depth and AR projection.</small></div>
-<div class="card core"><b>Offline</b><small>Map packs, route graphs, voice packs, cache and delta updates.</small></div>
-<div class="card core"><b>Runtime</b><small>Plugin lifecycle and JS/native bridge boundary.</small></div>
-<div class="card core"><b>Storage</b><small>SQLite/KV/binary cache abstractions.</small></div>
-<div class="card core"><b>Algorithms</b><small>Graph, HMM/Viterbi, Kalman/fusion, ETA, CV/SLAM primitives.</small></div>
-<div class="card core"><b>Network</b><small>Provider-neutral transport, ports, TLS and endpoint resolution.</small></div>
-</div>
-</section>
-<section>
-<h2>Long-lived boundary</h2>
-<pre>Engine
-  └─ Capability Contract
-       └─ Provider Adapter
-            └─ Endpoint Registry
-                 └─ HTTPS / WSS / QUIC / other transport
+<section><h2>Stable boundary</h2><div class="pipeline">
+<div class="step">App / WebGIS / Mobile / Robot</div><b>→</b><div class="step">Capability API</div><b>→</b><div class="step">Engine Registry</div><b>→</b><div class="step">Provider Adapter</div><b>→</b><div class="step">Endpoint Registry</div>
+</div></section>
+<section><h2>20 engines</h2><div class="grid">
+<div class="card core"><b>Map</b><small>Renderer, tiles, style, labels, camera.</small></div>
+<div class="card core"><b>Overlay</b><small>Marker, line, polygon, circle, heatmap, cluster.</small></div>
+<div class="card core"><b>Search</b><small>Geocode, reverse, POI, nearby, input tips.</small></div>
+<div class="card core"><b>Road</b><small>Nodes, links, topology, restrictions.</small></div>
+<div class="card core"><b>Lane</b><small>Lane geometry, connectivity and matching.</small></div>
+<div class="card dynamic"><b>Traffic</b><small>Congestion, incident, speed and travel time.</small></div>
+<div class="card dynamic"><b>Signal</b><small>Movement, phase, realtime state/countdown.</small></div>
+<div class="card core"><b>Sign</b><small>Limits, signs, cameras and facilities.</small></div>
+<div class="card core"><b>Routing</b><small>Driving, walking, cycling, transit, reroute.</small></div>
+<div class="card dynamic"><b>Navigation</b><small>Progress, guidance, playback and reroute.</small></div>
+<div class="card dynamic"><b>Positioning</b><small>GNSS/RTK/IMU/VDR and map matching.</small></div>
+<div class="card dynamic"><b>Perception</b><small>CV, SLAM, lane/light/sign perception.</small></div>
+<div class="card core"><b>Offline</b><small>Catalog, download, update, cache and packages.</small></div>
+<div class="card core"><b>Geometry</b><small>Coordinate, distance, bounds and route geometry.</small></div>
+<div class="card core"><b>Algorithms</b><small>Graph, HMM/Viterbi, filtering and ML primitives.</small></div>
+<div class="card core"><b>Storage</b><small>SQL, KV, binary and cache abstractions.</small></div>
+<div class="card core"><b>Network</b><small>Endpoint, timeout, retry, HTTP and cache.</small></div>
+<div class="card core"><b>Policy</b><small>Consent, privacy and permissions.</small></div>
+<div class="card core"><b>Observability</b><small>Health, diagnostics, logs and metrics.</small></div>
+<div class="card core"><b>Runtime</b><small>Platform gate, plugins and bridge boundary.</small></div>
+</div></section>
+<section><h2>Provider isolation</h2><pre>Domain Engine
+  └─ canonical contract
+       └─ provider adapter
+            └─ endpoint registry
+                 └─ resilient network client
 
-NO vendor hostname inside domain core
-NO private key inside repository
-NO proprietary binary required by contract</pre>
-</section>
-<section>
-<div class="note"><b>Research ≠ implementation.</b> The <code>research/</code> directory records static architectural findings. The reusable code under <code>src/</code> is independent and provider-neutral.</div>
-</section>
-</main>
-<footer><div class="wrap">Base27-CVNSS · Multi-Engine Architecture · 2026</div></footer>
-</body>
-</html>
+No vendor hostname in domain core
+No credentials in repository
+No proprietary binary required by the contract</pre></section>
+<section><div class="note"><b>gaode-map is a capability reference, not a code dependency.</b> AMap 0.2.0 re-expresses those capabilities as independent contracts suitable for web, mobile, local/offline and future VFM-based runtimes.</div></section>
+</main><footer><div class="wrap">Base27-CVNSS · AMap Multi-Engine Platform · 2026</div></footer>
+</body></html>

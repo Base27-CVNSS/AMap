@@ -1,21 +1,28 @@
 {
   "platform": "AMap Multi-Engine Platform",
-  "architectureVersion": "0.1.0",
+  "architectureVersion": "0.2.0",
   "coreRule": "domain engines never depend directly on vendor endpoints",
+  "engineCount": 20,
   "engines": [
     "storage",
     "network",
     "algorithms",
+    "geometry",
     "road",
     "lane",
     "map",
+    "overlay",
+    "search",
     "traffic",
     "signal",
     "sign",
     "positioning",
     "routing",
+    "navigation",
     "perception",
     "offline",
+    "policy",
+    "observability",
     "runtime"
   ],
   "canonicalLayers": [
@@ -23,9 +30,14 @@
     "lane-model",
     "traffic-state",
     "traffic-signal",
-    "road-sign-facility"
+    "road-sign-facility",
+    "poi-search",
+    "route",
+    "position",
+    "offline-package"
   ],
   "providerBoundary": "src/providers",
   "endpointBoundary": "src/network",
+  "policyBoundary": "src/policy",
   "researchBoundary": "research"
 }

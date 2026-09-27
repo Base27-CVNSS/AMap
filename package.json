@@ -1,11 +1,14 @@
 {
   "name": "@base27/amap-multi-engine-platform",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
+  "description": "Provider-neutral multi-engine geospatial, navigation and spatial-world platform",
   "scripts": {
     "check": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "npm run build && node dist/tests/smoke.js",
+    "ci": "npm run check && npm test"
   },
   "devDependencies": {
     "typescript": "^5.9.2"

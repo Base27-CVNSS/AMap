@@ -1,77 +1,119 @@
 # AMap Multi-Engine Platform
 
-A clean-room architecture study and reusable multi-engine geospatial/navigation platform inspired by the capability boundaries observed in modern navigation systems.
+Provider-neutral, clean-room framework for WebGIS, navigation, ADAS, robotics and spatial world-model applications.
 
-> **Scope:** architecture, interfaces, schemas, adapters, and reusable algorithms.  
-> **Not included:** proprietary AMap/Gaode binaries, bundled map data, private keys, copied application code, proprietary ML models, or hard-wired private endpoints.
+This repository uses the capability layout seen in `Base27-CVNSS/gaode-map` as a reference for **what a complete mapping SDK needs**, then reorganizes those capabilities into a long-lived multi-engine platform rather than a single React Native SDK.
 
-## Platform model
+## Status
+
+- Architecture version: **0.2.0**
+- Engines: **20**
+- Language: TypeScript reference core
+- CI: typecheck + build + smoke test
+- Design: provider-neutral / clean-room
+- Endpoint rule: no vendor hostname inside domain engines
+
+## Architecture
 
 ```text
-Application / UI
-      │
-Runtime + Plugin SDK
-      │
-Capability API / Contracts
-      │
-┌─────┼────────┬────────┬─────────┬──────────┐
-Map   Road     Lane     Traffic   Navigation Positioning
-│     │        │        │         │          │
-└─────┴────────┴────┬───┴─────────┴──────────┘
-                    │
-             Algorithms / State
-                    │
-          Provider Adapter Layer
-                    │
-        Endpoint Registry / Network
+Application / WebGIS / Mobile / Navigation / ADAS / Robot
+                         │
+                Runtime + Capability API
+                         │
+                    Engine Registry
+                         │
+┌────────────────────────┼───────────────────────────┐
+│ Map / Overlay / Search / Road / Lane / Traffic   │
+│ Signal / Sign / Routing / Navigation / Position  │
+│ Perception / Offline / Geometry / Algorithms     │
+│ Storage / Network / Policy / Observability       │
+└────────────────────────┼───────────────────────────┘
+                         │
+                  Provider Contracts
+                         │
+                  Provider Adapters
+                         │
+             Endpoint Registry + HTTP Client
+                         │
+             licensed/open external systems
 ```
 
-## Engines
-
-The platform treats each major capability as a replaceable engine:
+## 20 engines
 
 | Engine | Responsibility |
 |---|---|
-| Map | renderer, vector tiles, style, labels, camera |
-| Road | road graph, topology, restrictions, speed/toll attributes |
-| Lane | lane geometry, connectivity, markings, lane guidance |
-| Traffic | TMC-like dynamic state, congestion, incidents, travel time |
-| Signal | traffic-light topology, phase/state/countdown adapters |
-| Sign | speed limits, signs, cameras, checkpoints, road facilities |
-| Routing | route search, alternatives, reroute, maneuvers, ETA |
-| Positioning | GNSS/RTK/IMU/VDR fusion, map matching, lane matching |
-| Perception | CV, lane/sign/light perception, VIO/SLAM, depth |
-| Offline | package index, map/route/voice packs, delta updates, cache |
-| Runtime | JS/native bridge, plugin lifecycle, feature flags |
-| Storage | SQLite/KV/binary cache abstractions |
-| Algorithms | graph search, HMM/Viterbi, Kalman/fusion, ETA, CV/SLAM |
+| Storage | SQL/KV/binary/cache abstractions |
+| Network | endpoint resolution, timeout, retry, transport |
+| Algorithms | graph, sequence, filtering and ML primitives |
+| Geometry | coordinates, distance, bounds, geometry utilities |
+| Road | road graph, topology, restrictions, static attributes |
+| Lane | lane geometry, connectivity, lane-level matching |
+| Map | renderer, tiles, styles, labels and camera |
+| Overlay | marker, polyline, polygon, circle, heatmap, cluster |
+| Search | geocode, reverse geocode, POI, nearby, input tips |
+| Traffic | realtime state, congestion, incidents, travel time |
+| Signal | signal groups, phases, movement and realtime state |
+| Sign | road signs, speed limits, cameras and facilities |
+| Positioning | GNSS/RTK/IMU/VDR fusion and map/lane matching |
+| Routing | driving/walking/cycling/transit route planning |
+| Navigation | route following, reroute, progress and guidance |
+| Perception | lane/light/sign perception, VIO/SLAM and depth |
+| Offline | package catalog, download, update, delete and cache |
+| Policy | privacy, consent, permission and capability gating |
+| Observability | diagnostics, health, logs and metrics |
+| Runtime | plugin lifecycle and platform/native/web bridge |
+
+## What was added from the gaode-map capability review
+
+The reference repository exposes useful capability families such as:
+
+- map view + overlays
+- offline map management
+- permission/platform diagnostics
+- geocode / POI / input tips
+- route planning and web fallback
+- route geometry and route following
+- error handling, caching and retry
+- example catalog and runtime gating
+
+AMap 0.2.0 promotes these into provider-neutral contracts under `src/`, so the architecture can support MapLibre/PMTiles/OSM, custom services, licensed commercial APIs, mobile-native adapters or VFM data without changing the domain core.
 
 ## Core rule
 
-**Core code never depends directly on a vendor hostname or private endpoint.**
-
-Every external system is reached through:
-
 ```text
-Engine -> Capability Contract -> Provider Adapter -> Endpoint Registry -> Network
+Domain Engine
+   -> Capability Contract
+      -> Provider Adapter
+         -> Endpoint Registry
+            -> Network Client
 ```
 
-This makes the platform replaceable across OSM/PMTiles/MapLibre/custom traffic feeds or other licensed providers.
+A provider can be replaced without rewriting Road, Lane, Signal, Sign, Search, Routing or Navigation models.
 
-## Repository layout
+## Key folders
 
 ```text
 src/
-  core/              engine lifecycle + contracts
-  engines/           engine catalog
-  network/           endpoint registry
-  providers/         provider interfaces
-  platform.ts        composition root
-schemas/             canonical road/lane/signal/sign schemas
-config/              deployment-time endpoint examples
-docs/                architecture and clean-room rules
-examples/            bootstrap examples
-index.html           architecture overview
+  core/            lifecycle, engine registry, capability types
+  cache/           generic LRU cache
+  network/         endpoint registry + resilient HTTP client
+  geometry/        provider-neutral geospatial utilities
+  map/             overlay canonical model
+  search/          geocode/POI/input-tip contracts + service
+  routing/         route contracts
+  navigation/      route playback / progress
+  offline/         offline package lifecycle
+  policy/          privacy and permission abstractions
+  runtime/         platform detection and runtime gates
+  diagnostics/     platform health snapshot
+  providers/       provider contracts and registry
+  engines/         engine catalog
+schemas/           canonical JSON schemas
+config/            deployment configuration examples
+docs/              architecture, mapping, provider and lifecycle guides
+research/          static architectural observations only
+examples/          runnable composition examples
+tests/             smoke conformance tests
 ```
 
 ## Development
@@ -79,9 +121,11 @@ index.html           architecture overview
 ```bash
 npm install
 npm run check
-npm run build
+npm test
 ```
 
-## Design goal
+## Clean-room scope
 
-The repository is a long-lived foundation for WebGIS, navigation, ADAS, robotics and spatial world-model applications. Data contracts stay stable while renderers, routing engines, traffic sources, positioning systems and perception stacks remain replaceable.
+This repository does **not** include copied proprietary APK/XAPK binaries, DEX/native code, bundled commercial map data, private API keys, private signing logic or proprietary ML model weights.
+
+See `docs/CLEAN_ROOM_POLICY.md`.

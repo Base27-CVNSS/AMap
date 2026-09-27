@@ -4,19 +4,24 @@ import type { EngineContext } from "./core/types.js";
 import { ENGINE_CATALOG } from "./engines/catalog.js";
 import { EndpointRegistry } from "./network/endpoint-registry.js";
 import { ProviderRegistry } from "./providers/provider.js";
+import { RuntimeGate } from "./runtime/platform.js";
+import { collectDiagnostics } from "./diagnostics/diagnostics.js";
 
 export interface MultiEnginePlatform {
   engines: EngineRegistry;
   endpoints: EndpointRegistry;
   providers: ProviderRegistry;
   context: EngineContext;
+  runtime: RuntimeGate;
+  diagnostics(): ReturnType<typeof collectDiagnostics>;
 }
 
 export function createDefaultPlatform(): MultiEnginePlatform {
   const engines = new EngineRegistry();
-  for (const descriptor of ENGINE_CATALOG) {
-    engines.register(new BaseEngine(descriptor));
-  }
+  for (const descriptor of ENGINE_CATALOG) engines.register(new BaseEngine(descriptor));
+
+  const endpoints = new EndpointRegistry();
+  const providers = new ProviderRegistry();
 
   const context: EngineContext = {
     now: () => Date.now(),
@@ -28,8 +33,10 @@ export function createDefaultPlatform(): MultiEnginePlatform {
 
   return {
     engines,
-    endpoints: new EndpointRegistry(),
-    providers: new ProviderRegistry(),
-    context
+    endpoints,
+    providers,
+    context,
+    runtime: new RuntimeGate(engines),
+    diagnostics: () => collectDiagnostics(engines, endpoints, providers)
   };
 }

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OfflinePackage",
+  "type": "object",
+  "required": ["id", "name", "kind", "version"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "kind": { "enum": ["basemap", "road", "lane", "routing", "signal", "sign", "voice", "semantic", "perception-model"] },
+    "version": { "type": "string" },
+    "sizeBytes": { "type": ["integer", "null"], "minimum": 0 },
+    "checksum": { "type": ["string", "null"] },
+    "region": { "type": ["string", "null"] },
+    "status": { "enum": ["available", "queued", "downloading", "paused", "installed", "update-available", "error"] }
+  },
+  "additionalProperties": true
+}

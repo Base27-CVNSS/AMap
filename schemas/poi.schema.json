@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "POI",
+  "type": "object",
+  "required": ["id", "name", "coordinate"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "coordinate": {
+      "type": "object",
+      "required": ["longitude", "latitude"],
+      "properties": {
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 }
+      }
+    },
+    "address": { "type": ["string", "null"] },
+    "category": { "type": ["string", "null"] },
+    "phone": { "type": ["string", "null"] },
+    "distanceMeters": { "type": ["number", "null"], "minimum": 0 }
+  },
+  "additionalProperties": true
+}

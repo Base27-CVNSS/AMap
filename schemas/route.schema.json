@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RoutePath",
+  "type": "object",
+  "required": ["id", "mode", "geometry", "distanceMeters", "durationSeconds"],
+  "properties": {
+    "id": { "type": "string" },
+    "mode": { "enum": ["driving", "walking", "cycling", "electric-bike", "transit"] },
+    "geometry": { "type": "array", "minItems": 2 },
+    "distanceMeters": { "type": "number", "minimum": 0 },
+    "durationSeconds": { "type": "number", "minimum": 0 },
+    "maneuvers": { "type": "array" },
+    "tollCost": { "type": ["number", "null"], "minimum": 0 }
+  },
+  "additionalProperties": true
+}
