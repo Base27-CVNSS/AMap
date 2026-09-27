@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://base27.example/schemas/traffic-state.schema.json",
+  "title": "TrafficState",
+  "type": "object",
+  "required": ["roadLinkId", "timestamp"],
+  "properties": {
+    "roadLinkId": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "speedKph": { "type": ["number", "null"], "minimum": 0 },
+    "congestion": { "enum": ["free", "slow", "heavy", "blocked", "unknown"] },
+    "travelTimeSeconds": { "type": ["number", "null"], "minimum": 0 },
+    "incidentIds": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "source": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}
